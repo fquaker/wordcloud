@@ -2,10 +2,10 @@
 
 library(twitteR)
 library(base64enc)
-c.key<- "bLUW2i6ND03K9F8BiJrRKTua0"
-c.sec<-"a03b84qRL68S7E7m16ynhSXP53GhgHg15sL56IKT5fq5R79kNu"
-a.tok<-"202869942-cBVThh8r86jr1By31PYnAp77S7BPHXuPfNEiVeiJ"
-a.sec<-"lahTRYwkbQpG1o3dBHTL6i3yAiUpsrTDilchqQqCvPR5H"
+c.key<- ""
+c.sec<-""
+a.tok<-""
+a.sec<-""
 setup_twitter_oauth(consumer_key=c.key, consumer_secret=c.sec, access_token=a.tok, access_secret=a.sec)
 rstats<-searchTwitter("#FeriaNacPop", n=9999, since="2018-06-01")
 feria.libro<- do.call("rbind", lapply(rstats, as.data.frame))
