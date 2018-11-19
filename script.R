@@ -1,11 +1,8 @@
-#getdata
+source('settings.R')
 
+#getdata
 library(twitteR)
 library(base64enc)
-c.key<- ""
-c.sec<-""
-a.tok<-""
-a.sec<-""
 setup_twitter_oauth(consumer_key=c.key, consumer_secret=c.sec, access_token=a.tok, access_secret=a.sec)
 rstats<-searchTwitter("#FeriaNacPop", n=9999, since="2018-06-01")
 feria.libro<- do.call("rbind", lapply(rstats, as.data.frame))
@@ -15,7 +12,7 @@ feria.libro_text<- sapply(rstats, function (x) x$getText())
 str(feria.libro_text)
 
 #instalar el paquete tm
-#install.packages("tm")
+
 library(tm)
 feria_corpus<- Corpus (VectorSource(feria.libro_text))
 feria_corpus
@@ -33,7 +30,7 @@ feria_clean <- tm_map(feria_clean, stripWhitespace)
 
 #instalar el paquete wordcloud
 #wordcloud
-#install.packages("wordcloud")
+
 library(wordcloud)
 #wordcloud(feria_clean)
 
