@@ -2,10 +2,10 @@
 
 library(twitteR)
 library(base64enc)
-c.key<- ""
-c.sec<-""
-a.tok<-""
-a.sec<-""
+c.key<- "yYIrmvVWf4BiMlxFESzMLNbIR"
+c.sec<-"KkhP4XjiA1M0XhsBB0an9N5Ray5m7gu7eyUdbkq7if30D32iOs"
+a.tok<-"202869942-YFdI54vJnt88goDhjUEHOkh1VCjjVPzEIkUJuFi6"
+a.sec<-"FaAyoDgVU1Gwxnfow96XnEpZkTu6ShKdIkvi4TIrx8Kep"
 setup_twitter_oauth(consumer_key=c.key, consumer_secret=c.sec, access_token=a.tok, access_secret=a.sec)
 rstats<-searchTwitter("#FeriaNacPop", n=9999, since="2018-06-01")
 feria.libro<- do.call("rbind", lapply(rstats, as.data.frame))
@@ -13,14 +13,16 @@ feria.libro<- do.call("rbind", lapply(rstats, as.data.frame))
 #corpus
 feria.libro_text<- sapply(rstats, function (x) x$getText())
 str(feria.libro_text)
-install.packages("tm")
+
+#instalar el paquete tm
+#install.packages("tm")
 library(tm)
 feria_corpus<- Corpus (VectorSource(feria.libro_text))
 feria_corpus
 inspect(feria_corpus[1])
 
 #limpieza
-feria_clean<- tm_map(feria.libro_text, removePunctuation)
+feria_clean<- tm_map(feria_corpus, removePunctuation)
 removeSpecialChars <- function(x) gsub("[^a-zA-Z0-9 ]","",x)
 feria_clean <- tm_map(feria_clean, removeSpecialChars)
 feria_clean<- tm_map(feria_clean, content_transformer(tolower))
@@ -28,10 +30,12 @@ feria_clean <- tm_map(feria_clean, removeNumbers)
 feria_clean <- tm_map(feria_clean, removeWords, stopwords("spanish"))
 feria_clean <- tm_map(feria_clean, stripWhitespace)
 
+
+#instalar el paquete wordcloud
 #wordcloud
-install.packages("wordcloud")
+#install.packages("wordcloud")
 library(wordcloud)
-wordcloud(feria_clean)
+#wordcloud(feria_clean)
 
 #otra forma de armar el data frame
 dtm <- TermDocumentMatrix(feria_clean)
