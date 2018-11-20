@@ -11,8 +11,6 @@ feria.libro<- do.call("rbind", lapply(rstats, as.data.frame))
 feria.libro_text<- sapply(rstats, function (x) x$getText())
 str(feria.libro_text)
 
-#instalar el paquete tm
-
 library(tm)
 feria_corpus<- Corpus (VectorSource(feria.libro_text))
 feria_corpus
@@ -26,10 +24,6 @@ feria_clean<- tm_map(feria_clean, content_transformer(tolower))
 feria_clean <- tm_map(feria_clean, removeNumbers)
 feria_clean <- tm_map(feria_clean, removeWords, stopwords("spanish"))
 feria_clean <- tm_map(feria_clean, stripWhitespace)
-
-
-#instalar el paquete wordcloud
-#wordcloud
 
 library(wordcloud)
 #wordcloud(feria_clean)
