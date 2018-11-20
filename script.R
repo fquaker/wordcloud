@@ -4,7 +4,7 @@ source('settings.R')
 library(twitteR)
 library(base64enc)
 setup_twitter_oauth(consumer_key=c.key, consumer_secret=c.sec, access_token=a.tok, access_secret=a.sec)
-rstats<-searchTwitter("#FeriaNacPop", n=9999, since="2018-06-01")
+rstats<-searchTwitter(hashtag, n=numero, since=since)
 feria.libro<- do.call("rbind", lapply(rstats, as.data.frame))
 
 #corpus
