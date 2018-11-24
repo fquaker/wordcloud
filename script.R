@@ -25,7 +25,7 @@ feria_clean <- tm_map(feria_clean, removeNumbers)
 feria_clean <- tm_map(feria_clean, removeWords, stopwords("spanish"))
 feria_clean <- tm_map(feria_clean, stripWhitespace)
 
-library(wordcloud)
+library(wordcloud2)
 #wordcloud(feria_clean)
 
 #otra forma de armar el data frame
@@ -33,5 +33,10 @@ dtm <- TermDocumentMatrix(feria_clean)
 m <- as.matrix(dtm)
 v <- sort(rowSums(m),decreasing=TRUE)
 d <- data.frame(word = names(v),freq=v)
-#wordcloud(words=d$word, freq=d$freq, max.words = 100, random.order = FALSE, colors = rainbow(400))
-wordcloud2(head(d, 100), backgroundColor = "white", size=2, fontFamily = "cambria", shape="square", color= "random-light")
+
+library(webshot)
+my_graph <- wordcloud2(head(d, 100), backgroundColor = "white", size=2, fontFamily = "cambria", shape="square", color= "random-light")
+
+library("htmlwidgets")
+saveWidget(my_graph,"tmp.html",selfcontained = F)
+webshot("tmp.html","fig.pdf", delay =5, vwidth = 480, vheight=480)
